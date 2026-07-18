@@ -17,6 +17,14 @@ it means nothing.
 
 ---
 
+## Installation
+
+```
+pi install git:github.com/CatMeowByte/pi_salmonfruit
+```
+
+---
+
 ## Usage
 
 `TAIL.md` can be placed in the same rule and precedence as `AGENTS.md`.

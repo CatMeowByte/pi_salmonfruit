@@ -7,7 +7,7 @@ import { homedir } from "node:os";
 import { dirname, resolve } from "node:path";
 
 const custom_type = "salmonfruit";
-const tag_name = "REMINDER";
+const tag_name = "information";
 const file_name = "TAIL.md";
 
 // same directory as AGENTS.md. user already know this place. no new location to remember.
@@ -88,21 +88,8 @@ export default function salmonfruit(pi: ExtensionAPI): void {
  pi.on("context", async (event) => {
   if (!tail_content) return;
 
-  // find last user message index. walk backward so one pass.
-  let last_user = -1;
-  for (let i = event.messages.length - 1; i >= 0; i--) {
-   if (event.messages[i].role === "user") {
-    last_user = i;
-    break;
-   }
-  }
-
-  // no user message at all. fallback: push at very end.
-  if (last_user === -1) last_user = event.messages.length;
-
-  // splice before last user. reminder read first then user message then assistant reply.
-  // tail between every tool call would spam. this puts it above user once per turn.
-  event.messages.splice(last_user, 0, {
+  // push at very end. context throwaway so tail once per turn.
+  event.messages.push({
    role: "custom",
    customType: custom_type,
    content: wrap(tail_content),

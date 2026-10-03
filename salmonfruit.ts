@@ -1,17 +1,16 @@
 // SalmonFruit
 // by CatMeowByte
 
-import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { getAgentDir, type ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { access, readFile } from "node:fs/promises";
-import { homedir } from "node:os";
 import { dirname, resolve } from "node:path";
 
 const custom_type = "salmonfruit";
 const tag_name = "information";
 const file_name = "TAIL.md";
 
-// same directory as AGENTS.md. user already know this place. no new location to remember.
-const global_dir = resolve(homedir(), ".pi/agent");
+// same directory as AGENTS.md.
+const global_dir = getAgentDir();
 
 async function exists(path: string): Promise<boolean> {
  // access() ask kernel only. readFile() load whole file. waste memory just to check if file there.
